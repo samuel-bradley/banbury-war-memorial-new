@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Memorial() {
   return (
     <main className="min-h-screen flex flex-col gap-y-5 items-center p-24 font-sans">
       <nav role="nav" className="flex flex-row gap-x-3">
