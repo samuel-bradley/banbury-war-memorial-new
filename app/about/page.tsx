@@ -4,7 +4,7 @@ import Navigation from "../navigation";
 export default function About() {
   return (
     <main className="min-h-screen flex flex-col gap-y-5 items-center p-24 font-sans">
-      <Navigation/>
+      <Navigation currentPage="about"/>
 
       <h1 className="text-4xl">About</h1>
       <div className="max-w-3xl">

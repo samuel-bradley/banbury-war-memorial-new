@@ -3,7 +3,8 @@ import Navigation from "./navigation";
 export default function Memorial() {
   return (
     <main className="min-h-screen flex flex-col gap-y-5 items-center p-24 font-sans">
-      <Navigation/>
+      <Navigation currentPage="memorial"/>
+      
       <h1 className="text-4xl">Memorial</h1>
       <p className="italic">
         They shall not grow old as we who are left grow old<br/>
