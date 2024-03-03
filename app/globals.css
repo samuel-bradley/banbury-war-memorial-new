@@ -26,6 +26,24 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@layer components {
+  h1 {
+    @apply text-4xl mb-2;
+  }
+  h2:first-of-type {
+    @apply text-2xl mt-0 mb-2;
+  }
+  h2 {
+    @apply text-2xl mt-4 mb-2;
+  }
+  p, ul {
+    @apply mb-2 leading-snug;
+  }
+  p a {
+    @apply underline hover:text-gray-400;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
