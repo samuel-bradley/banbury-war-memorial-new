@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Main from "../main";
 
-export default function Memorial() {
+export default function WartimeBanbury() {
   return (
     <Main pageName="wartime-banbury" heading="Wartime Banbury" content = {
       <>
