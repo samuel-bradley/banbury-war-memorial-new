@@ -9,11 +9,7 @@ export const metadata: Metadata = {
   description: "An online memorial to those from the town of Banbury who gave their lives in the Second World War",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>

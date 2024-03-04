@@ -1,17 +1,16 @@
-import Navigation from "./navigation";
+import Main from "./main";
 
 export default function Memorial() {
   return (
-    <main className="min-h-screen flex flex-col gap-y-5 items-center p-24 font-sans">
-      <Navigation currentPage="memorial"/>
-      
-      <h1 className="text-4xl">Memorial</h1>
-      <p className="italic">
-        They shall not grow old as we who are left grow old<br/>
-        Age shall not weary them, nor the years condemn<br/>
-        At the going down of the sun and in the morning<br/>
-        We will remember them.
-      </p>
-    </main>
-  );
+    <Main pageName="memorial" heading="Memorial" content = {
+      <div className="max-w-3xl">
+        <p className="italic">
+          They shall not grow old as we who are left grow old<br/>
+          Age shall not weary them, nor the years condemn<br/>
+          At the going down of the sun and in the morning<br/>
+          We will remember them.
+        </p>
+      </div>
+    }/>
+  )
 }

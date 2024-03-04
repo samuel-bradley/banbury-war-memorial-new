@@ -1,15 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navigation from "../navigation";
+import Main from "../main";
 
 export default function About() {
   return (
-    <main className="min-h-screen flex flex-col gap-y-5 items-center p-24 font-sans">
-      <Navigation currentPage="about"/>
-
-      <h1 className="text-4xl">About</h1>
+    <Main pageName="memorial" heading="Memorial" content = {
       <div className="max-w-3xl">
-        
         <h2>About the memorial</h2>
         <p>In <Link href="https://www.banburystmary.org.uk/">St Mary's Church</Link>, on Horse Fair, Banbury, there is a
             memorial listing the names of the town's men who died in the Second World War. This memorial consists of
@@ -65,6 +61,6 @@ export default function About() {
             generations could live in freedom.</p>
         <p>It is important to us that these men are remembered, and do not become just names on a list.</p>
       </div>
-    </main>
+    }/>
   );
 }
