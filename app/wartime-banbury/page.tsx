@@ -10,7 +10,7 @@ export default function WartimeBanbury() {
         <nav className="m-4 mb-8 pl-2 border-l-4">
           <ul>
             <li><Link href="/wartime-banbury/bombing-raids">Bombing raids on Banbury</Link></li>
-            <li><Link href="/wartime-banbury/dummy-factory">The "Dummy Ally" factory &amp; the Alcan Roll of Honour</Link></li>
+            <li><Link href="/wartime-banbury/dummy-ally">The "Dummy Ally" factory and the Alcan Roll of Honour</Link></li>
             <li><Link href="/wartime-banbury/southam-road-burials">Southam Road Cemetery WWII burials</Link></li>
             <li><Link href="/wartime-banbury/st-marys-log-book">St. Mary's Primary School Log Book</Link></li>
             <li><Link href="/wartime-banbury/margaret-cooper">Life in Wartime Banbury - Margaret Cooper</Link></li>
