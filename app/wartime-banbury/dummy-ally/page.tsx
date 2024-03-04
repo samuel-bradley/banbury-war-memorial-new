@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Main from "../../main";
 
-export default function BombingRaids() {
+export default function DummyAlly() {
   return (
     <Main pageName="dummy-ally" heading="Wartime Banbury" content = {
       <>
