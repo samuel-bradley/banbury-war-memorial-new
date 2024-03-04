@@ -4,7 +4,7 @@ import Main from "../main";
 
 export default function About() {
   return (
-    <Main pageName="memorial" heading="Memorial" content = {
+    <Main pageName="about" heading="About" content = {
       <>
         <h2>About the memorial</h2>
         <p>In <Link href="https://www.banburystmary.org.uk/">St Mary's Church</Link>, on Horse Fair, Banbury, there is a
