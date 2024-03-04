@@ -5,7 +5,7 @@ import Main from "../main";
 export default function About() {
   return (
     <Main pageName="memorial" heading="Memorial" content = {
-      <div className="max-w-3xl">
+      <>
         <h2>About the memorial</h2>
         <p>In <Link href="https://www.banburystmary.org.uk/">St Mary's Church</Link>, on Horse Fair, Banbury, there is a
             memorial listing the names of the town's men who died in the Second World War. This memorial consists of
@@ -60,7 +60,7 @@ export default function About() {
             site is dedicated to them all, but in particular to the men who made the ultimate sacrifice so that future
             generations could live in freedom.</p>
         <p>It is important to us that these men are remembered, and do not become just names on a list.</p>
-      </div>
+      </>
     }/>
   );
 }
