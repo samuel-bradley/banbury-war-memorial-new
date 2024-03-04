@@ -18,10 +18,8 @@ export default function WartimeBanbury() {
             <li><Link href="/wartime-banbury/air-crash-in-adderbury">Air Crash in Adderbury 1944</Link></li>
           </ul>
         </nav>
-        <div>
-          <Image src="/war-weapons-week.jpg" width={460} height={555} alt="War Weapons Week poster, April 1941"
-            className="mx-auto border"/>
-        </div>
+        <Image src="/war-weapons-week.jpg" width={460} height={555} alt="War Weapons Week poster, April 1941"
+          className="mx-auto border"/>
       </>
     }/>
   )
