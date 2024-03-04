@@ -39,7 +39,7 @@ body {
   p, ul {
     @apply mb-2 leading-snug;
   }
-  p a {
+  p a, ul a {
     @apply underline hover:text-gray-400;
   }
 }
