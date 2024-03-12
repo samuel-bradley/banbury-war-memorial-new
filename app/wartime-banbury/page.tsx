@@ -15,7 +15,7 @@ export default function WartimeBanbury() {
             <li><Link href="/wartime-banbury/st-marys-log-book">St. Mary's Primary School Log Book</Link></li>
             <li><Link href="/wartime-banbury/margaret-cooper">Life in Wartime Banbury - Margaret Cooper</Link></li>
             <li><Link href="/wartime-banbury/air-crash-in-bodicote">Air Crash in Bodicote 1942</Link></li>
-            <li><Link href="/wartime-banbury/air-crash-in-adderbury">Air Crash in Adderbury 1944</Link></li>
+            <li><Link href="/wartime-banbury/air-crashes-in-adderbury-and-milton">Air Crashes in Adderbury and Milton</Link></li>
           </ul>
         </nav>
         <Image src="/war-weapons-week.jpg" width={460} height={555} alt="War Weapons Week poster, April 1941"
