@@ -10,7 +10,40 @@ export default function Contact() {
       message: formData.get('message')
     }
 
-    // TODO send email
+    var AWS = require("aws-sdk");
+    AWS.config.update({ region: "eu-west-2" });
+
+    var params = {
+      Destination: {
+        CcAddresses: [],
+        ToAddresses: ["samueljbradley94@gmail.com"],
+      },
+      Message: {
+        Body: {
+          Html: {
+            Charset: "UTF-8",
+            Data: `<html><body>${rawFormData.message}</body></html>`,
+          }
+        },
+        Subject: {
+          Charset: "UTF-8",
+          Data: `Banbury War Memorial Contact - ${rawFormData.subject}`,
+        }
+      },
+      Source: rawFormData.from,
+      ReplyToAddresses: [rawFormData.from]
+    };
+    
+    var sendPromise = new AWS.SES({ apiVersion: "2010-12-01" })
+      .sendEmail(params)
+      .promise();
+    sendPromise
+      .then(function (data: { MessageId: any; }) {
+        console.log(data.MessageId);
+      })
+      .catch(function (err: { stack: any; }) {
+        console.error(err, err.stack);
+      });
   }
   return (
     <Main pageName="contact" heading="Contact" content = {
