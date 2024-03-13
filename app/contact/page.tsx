@@ -1,4 +1,5 @@
 import Main from "../main";
+import { SubmitButton } from "../submit-button";
 
 export default function Contact() {
   async function sendEmail(formData: FormData) {
@@ -76,7 +77,7 @@ export default function Contact() {
               </div>
             </div>
           </div>
-          <button type="submit" className="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Send</button>
+          <SubmitButton label="Send" pendingLabel="Sending..." classNames="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 disabled:hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"/>
         </form>
       </>
     }/>
