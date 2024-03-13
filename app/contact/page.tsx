@@ -60,19 +60,19 @@ export default function Contact() {
               <div className="sm:col-span-6">
                 <label htmlFor="from" className="block leading-6 mb-1">Your email address:</label>
                 <div className="flex rounded-md shadow-sm ring-2 ring-inset ring-gray-500 focus-within:ring-inset focus-within:ring-gray-400 sm:max-w-md">
-                  <input type="email" id="from" name="from" className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="you@somewhere.com"/>
+                  <input type="email" required id="from" name="from" className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="you@somewhere.com"/>
                 </div>
               </div>
               <div className="sm:col-span-6">
                 <label htmlFor="from" className="block leading-6 mb-1">Subject:</label>
                 <div className="flex rounded-md shadow-sm ring-2 ring-inset ring-gray-500 focus-within:ring-inset focus-within:ring-gray-400 sm:max-w-md">
-                <input type="text" id="subject" name="subject" className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="What's this about?"/>
+                <input type="text" required id="subject" name="subject" className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="What's this about?"/>
                 </div>
               </div>
               <div className="sm:col-span-6">
                 <label htmlFor="from" className="block leading-6 mb-1">Message:</label>
                 <div className="flex rounded-md shadow-sm ring-2 ring-inset ring-gray-500 focus-within:ring-inset focus-within:ring-gray-400 sm:max-w-md">
-                  <textarea id="message" name="message" cols={50} rows={5} className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="What would you like to say?"/>
+                  <textarea id="message" required name="message" cols={50} rows={5} className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500" placeholder="What would you like to say?"/>
                 </div>
               </div>
             </div>
