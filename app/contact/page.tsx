@@ -14,7 +14,7 @@ export default function Contact() {
     setMessage(res.message);
   }
 
-  return (    
+  return (
     <Main pageName="contact" heading="Contact" content = {
       <>
         {message ? (
