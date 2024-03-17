@@ -15,11 +15,13 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "aws-sdk": "^2.1576.0",
+    "crypto-js": "^4.2.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.1",
     "html-react-parser": "^5.1.8",
