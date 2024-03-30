@@ -1,12 +1,6 @@
 'use server'
 
-export async function sendEmail(formData: FormData) {
-
-  const rawFormData = {
-    from: formData.get('from'),
-    subject: formData.get('subject'),
-    message: formData.get('message')
-  }
+export default async function sendEmail(from: string, subject: string, message: string) {
 
   var AWS = require("aws-sdk");
   AWS.config.update({ region: "eu-west-2" });
@@ -21,16 +15,16 @@ export async function sendEmail(formData: FormData) {
       Body: {
         Html: {
           Charset: "UTF-8",
-          Data: `<html><body>${rawFormData.message}</body></html>`,
+          Data: `<html><body>${message}</body></html>`,
         }
       },
       Subject: {
         Charset: "UTF-8",
-        Data: `Banbury War Memorial Contact - ${rawFormData.subject}`,
+        Data: `Banbury War Memorial Contact - ${subject}`,
       }
     },
-    Source: rawFormData.from,
-    ReplyToAddresses: [rawFormData.from]
+    Source: from,
+    ReplyToAddresses: [from]
   };
   
   return new AWS.SES({ apiVersion: "2010-12-01" })
