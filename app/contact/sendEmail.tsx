@@ -1,31 +1,31 @@
 'use server'
 
-export default async function sendEmail(from: string, subject: string, message: string) {
+export default async function sendEmail(fromAddress: string, subject: string, message: string) {
 
-  var AWS = require("aws-sdk");
-  AWS.config.update({ region: "eu-west-2" });
+  var AWS = require("aws-sdk")
+  AWS.config.update({ region: "eu-west-2" })
 
-  const toAddress = "samueljbradley94@gmail.com"
+  const toAddress = 'samueljbradley94@gmail.com'
   var params = {
     Destination: {
       CcAddresses: [],
-      ToAddresses: ["samueljbradley94@gmail.com"],
+      ToAddresses: [toAddress]
     },
     Message: {
       Body: {
         Html: {
           Charset: "UTF-8",
-          Data: `<html><body>${message}</body></html>`,
+          Data: `<html><body>${message}</body></html>`
         }
       },
       Subject: {
         Charset: "UTF-8",
-        Data: `Banbury War Memorial Contact - ${subject}`,
+        Data: `Banbury War Memorial Contact - ${fromAddress} - ${subject}`
       }
     },
-    Source: from,
-    ReplyToAddresses: [from]
-  };
+    Source: toAddress, // this must be an SES-verified email address
+    ReplyToAddresses: [fromAddress]
+  }
   
   return new AWS.SES({ apiVersion: "2010-12-01" })
     .sendEmail(params)
@@ -33,7 +33,7 @@ export default async function sendEmail(from: string, subject: string, message: 
     .then(function (_: { MessageId: any; }) {
       return { message: "Thank you for your message - I'll try to get back to you soon." }
     })
-    .catch(function (_: { stack: any; }) {
+    .catch(function (_: { stack: string; }) {
       return { message: `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` }
-    });
+    })
 }
