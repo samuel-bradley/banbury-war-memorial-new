@@ -3,21 +3,24 @@
 import Main from "../main";
 import SubmitButton from "../submit-button"
 import sendEmail from "./sendEmail";
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import ReactHtmlParser from 'html-react-parser';
 
 export default function Contact() {
   const [message, setMessage] = useState<string>('');
+  const [isPending, startTransition] = useTransition();
 
   const onSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const { message } = await sendEmail(
-      formData.get('from') as string,
-      formData.get('subject') as string,
-      formData.get('message') as string
-    );
-    setMessage(message);
+    startTransition(async () => {
+      const formData = new FormData(event.currentTarget);
+      const { message } = await sendEmail(
+        formData.get('from') as string,
+        formData.get('subject') as string,
+        formData.get('message') as string
+      );
+      setMessage(message);
+    })
   }
 
   return (
@@ -53,7 +56,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <SubmitButton label="Send" pendingLabel="Sending..." classNames="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 disabled:hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"/>
+            <SubmitButton label="Send" isPending={isPending} pendingLabel="Sending..." classNames="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 disabled:hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"/>
           </form>
         )}
       </>
