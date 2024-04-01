@@ -18,7 +18,7 @@ test('can submit the contact form', async ({ page }) => {
   await expect(sendButton).toHaveText('Sending...')
   expect(sendButton).toBeDisabled
 
-  await page.waitForFunction(() => !document.querySelector('form'))
+  await page.waitForFunction(() => { document.querySelector('#resultMessage') })
 
   const successMessage = page.getByRole('paragraph')
   expect(successMessage).toHaveText('Thank you for your message - I\'ll try to get back to you soon.')

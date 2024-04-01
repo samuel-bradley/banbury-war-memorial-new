@@ -6,7 +6,7 @@ import sendEmail from '../app/contact/sendEmail';
 jest.mock('../app/submit-button', () => () => <button type="submit"/>)
 jest.mock('../app/contact/sendEmail', () => ({
   __esModule: true,
-  default: jest.fn((_: FormData) => { return { message: 'Message sent' } })
+  default: jest.fn((_: FormData) => { return 'Message sent' })
 }));
 
 describe('The contact page', () => {

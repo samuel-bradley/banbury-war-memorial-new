@@ -14,12 +14,12 @@ export default function Contact() {
     event.preventDefault();
     startTransition(async () => {
       const formData = new FormData(event.currentTarget);
-      const { message } = await sendEmail(
+      const message: string = await sendEmail(
         formData.get('from') as string,
         formData.get('subject') as string,
         formData.get('message') as string
-      );
-      setMessage(message);
+      )
+      setMessage(message)
     })
   }
 
@@ -27,7 +27,7 @@ export default function Contact() {
     <Main pageName="contact" heading="Contact" content = {
       <>
         {message ? (
-          <p className="max-w-sm">{ReactHtmlParser(message)}</p>
+          <p id="resultMessage" className="max-w-sm">{ReactHtmlParser(message)}</p>
         ) : (
           <form onSubmit={onSend}>
             <div className="border-b border-gray-900/10 pb-6">

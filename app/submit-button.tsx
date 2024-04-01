@@ -1,7 +1,5 @@
 'use client'
  
-import { useFormStatus } from 'react-dom'
-
 interface SubmitButtonProps {
   label: string;
   isPending: boolean;

@@ -1,6 +1,6 @@
 'use server'
 
-export default async function sendEmail(fromAddress: string, subject: string, message: string) {
+export default async function sendEmail(fromAddress: string, subject: string, message: string): Promise<string> {
 
   var AWS = require("aws-sdk")
   AWS.config.update({ region: "eu-west-2" })
@@ -30,10 +30,6 @@ export default async function sendEmail(fromAddress: string, subject: string, me
   return new AWS.SES({ apiVersion: "2010-12-01" })
     .sendEmail(params)
     .promise()
-    .then(function (_: { MessageId: any; }) {
-      return { message: "Thank you for your message - I'll try to get back to you soon." }
-    })
-    .catch(function (_: { stack: string; }) {
-      return { message: `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` }
-    })
+    .then(() => { return "Thank you for your message - I'll try to get back to you soon." })
+    .catch(() => { return `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` })
 }
