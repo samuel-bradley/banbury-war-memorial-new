@@ -15,13 +15,11 @@ test('can submit the contact form', async ({ page }) => {
   const sendButton = page.getByText('Send')
   await sendButton.click()
 
-  await expect(sendButton).toHaveText('Sending...')
-  expect(sendButton).toBeDisabled
+  const sendingButton = page.getByText('Sending...')
+  expect(sendingButton).toBeDisabled()
 
-  await page.waitForFunction(() => { document.querySelector('#resultMessage') })
-
-  const successMessage = page.getByRole('paragraph')
-  expect(successMessage).toHaveText('Thank you for your message - I\'ll try to get back to you soon.')
+  const successMessage = page.getByText('Thank you for your message - I\'ll try to get back to you soon.')
+  expect(successMessage).toBeVisible()
 });
 
 test('cannot submit the contact form without email', async ({ page }) => {
@@ -37,7 +35,7 @@ test('cannot submit the contact form without email', async ({ page }) => {
   await sendButton.click()
 
   await page.waitForTimeout(100)
-  expect(sendButton).toBeVisible
+  expect(sendButton).toBeVisible()
 });
 
 test('cannot submit the contact form without subject', async ({ page }) => {
@@ -53,7 +51,7 @@ test('cannot submit the contact form without subject', async ({ page }) => {
   await sendButton.click()
 
   await page.waitForTimeout(100)
-  expect(sendButton).toBeVisible
+  expect(sendButton).toBeVisible()
 });
 
 test('cannot submit the contact form without message', async ({ page }) => {

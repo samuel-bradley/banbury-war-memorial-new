@@ -1,14 +1,13 @@
 'use server'
 
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+
 export default async function sendEmail(fromAddress: string, subject: string, message: string): Promise<string> {
 
-  var AWS = require("aws-sdk")
-  AWS.config.update({ region: "eu-west-2" })
-
+  const sesClient = new SESClient({region: 'eu-west-2'})
   const toAddress = 'samueljbradley94@gmail.com'
-  var params = {
+  const sendEmailCommand = new SendEmailCommand({
     Destination: {
-      CcAddresses: [],
       ToAddresses: [toAddress]
     },
     Message: {
@@ -25,11 +24,9 @@ export default async function sendEmail(fromAddress: string, subject: string, me
     },
     Source: toAddress, // this must be an SES-verified email address
     ReplyToAddresses: [fromAddress]
-  }
+  })
   
-  return new AWS.SES({ apiVersion: "2010-12-01" })
-    .sendEmail(params)
-    .promise()
+  return sesClient.send(sendEmailCommand)
     .then(() => { return "Thank you for your message - I'll try to get back to you soon." })
     .catch(() => { return `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` })
 }
