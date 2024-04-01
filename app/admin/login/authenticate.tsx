@@ -2,9 +2,9 @@
 
 import { logIn } from './session'
   
-export async function authenticate(_currentState: unknown, formData: FormData) {
+export async function authenticate(password: string): Promise<any> {
   try {
-    checkPassword(formData)
+    checkPassword(password)
     return logIn()
   } catch (error) {
     if (error && error instanceof Error) {
@@ -14,11 +14,11 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
   }
 }
 
-function checkPassword(formData: FormData) {
+function checkPassword(password: string) {
   if (!process.env.ADMIN_PASSWORD) {
     throw new Error("No admin password set.")
   }
-  if (formData.get("password") != process.env.ADMIN_PASSWORD) {
+  if (password != process.env.ADMIN_PASSWORD) {
     throw new Error("Incorrect password.")
   }
 }

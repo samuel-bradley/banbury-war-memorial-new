@@ -1,17 +1,17 @@
 'use client'
 
-import Main from "../main";
+import Main from "../main"
 import SubmitButton from "../submit-button"
-import sendEmail from "./sendEmail";
-import { useState, useTransition } from 'react';
-import ReactHtmlParser from 'html-react-parser';
+import sendEmail from "./sendEmail"
+import { useState, useTransition } from 'react'
+import ReactHtmlParser from 'html-react-parser'
 
 export default function Contact() {
-  const [message, setMessage] = useState<string>('');
-  const [isPending, startTransition] = useTransition();
+  const [message, setMessage] = useState<string>('')
+  const [isPending, startTransition] = useTransition()
 
   const onSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     startTransition(async () => {
       const formData = new FormData(event.currentTarget);
       const message: string = await sendEmail(
