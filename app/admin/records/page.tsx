@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Main from "../../main"
 import { MemorialRecord } from "./dynamoDb"
+import Link from 'next/link';
 
 export default function Page() {
   const [records, setData] = useState(() => [] as MemorialRecord[])
@@ -32,7 +33,7 @@ export default function Page() {
         { !isLoading && records && (
           <ul>{
             records.map((record: MemorialRecord) => {
-              return <li key={record.id}>{record.nameOnList}</li>
+              return <li key={record.id}><Link href={`/admin/records/${record.id}`}>{record.name_on_memorial}</Link></li>
             })
           }</ul>
         )}
