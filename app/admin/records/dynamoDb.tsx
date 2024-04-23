@@ -27,7 +27,6 @@ export async function listRecords(): Promise<MemorialRecord[]> {
 }
 
 export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord | undefined> {
-  console.log('Retrieving record ' + nameInUrl)
   const input: QueryCommandInput = {
     TableName: tableName,
     KeyConditionExpression: 'nameInUrl = :nameInUrl',
@@ -38,19 +37,10 @@ export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord 
 }
 
 export async function updateRecord(record: MemorialRecord): Promise<boolean> {
-  console.log('Updating record ' + JSON.stringify(record))
-  /*const input: UpdateItemCommandInput = {
-    TableName: tableName,
-    Key: { 'nameInUrl': { S: record.nameInUrl }},
-    UpdateExpression: `SET nameOnMemorial = :nameOnMemorial`,
-    ExpressionAttributeValues: {'nameOnMemorial': { S: record.nameOnMemorial} }
-  }*/
   const input: PutItemCommandInput = {
     TableName: tableName,
     Item: marshall(record)
   }
-  console.log("Input:")
-  console.log(input)
   const output = await client.send(new PutItemCommand(input))
   return output.$metadata.httpStatusCode == 200
 }

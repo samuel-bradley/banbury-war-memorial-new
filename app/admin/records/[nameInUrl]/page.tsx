@@ -33,7 +33,6 @@ export default function Page({ params }: { params: { nameInUrl: string } }) {
       try {
         const formData = new FormData(event.currentTarget)
         const postBody = JSON.stringify(Object.fromEntries(formData.entries()))
-        console.log("postBody is " + postBody)
         const response = await fetch('/admin/records/update', {
           method: 'POST',
           body: postBody,
