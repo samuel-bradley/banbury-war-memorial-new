@@ -2,9 +2,9 @@
 
 import { retrieveRecord } from "../../dynamoDb"
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: { nameInUrl: string } }) {
   try {
-    const record = await retrieveRecord(params.id);
+    const record = await retrieveRecord(params.nameInUrl);
     const json = JSON.stringify(record)
     return Response.json(json)
   } catch (error) {

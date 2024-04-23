@@ -33,7 +33,7 @@ export default function Page() {
         { !isLoading && records && (
           <ul>{
             records.map((record: MemorialRecord) => {
-              return <li key={record.id}><Link href={`/admin/records/${record.id}`}>{record.name_on_memorial}</Link></li>
+              return <li key={record.nameInUrl}><Link href={`/admin/records/${record.nameInUrl}`}>{record.nameInUrl}</Link></li>
             })
           }</ul>
         )}
