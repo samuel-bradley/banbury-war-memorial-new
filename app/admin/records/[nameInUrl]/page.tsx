@@ -3,7 +3,7 @@
 import Main from "@/app/main";
 import Link from "next/link";
 import { FormEvent, useEffect, useState, useTransition } from "react";
-import { MemorialRecord } from "../dynamoDb";
+import { MemorialRecord } from "../../../dynamoDb";
 import SubmitButton from "@/app/submit-button";
 
 export default function Page({ params }: { params: { nameInUrl: string } }) {

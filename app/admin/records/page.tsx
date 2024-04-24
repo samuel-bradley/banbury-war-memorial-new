@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Main from "../../main"
-import { MemorialRecord } from "./dynamoDb"
+import { MemorialRecord } from "../../dynamoDb"
 import Link from 'next/link';
 
 export default function Page() {
