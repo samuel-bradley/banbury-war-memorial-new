@@ -1,11 +1,26 @@
 'use server'
 
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand, UpdateItemCommand, UpdateItemCommandInput } from "@aws-sdk/client-dynamodb"
+import { DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand } from "@aws-sdk/client-dynamodb"
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb"
 
 export interface MemorialRecord {
   nameInUrl: string
   nameOnMemorial: string
+  memorialPanel: string
+  fullName: string
+  rank: string
+  serviceDetails: string
+  ageAtDeath: number
+  dateOfDeath: Date
+  birthPlace: string
+  parents: string
+  motherMaidenName: string
+  parentsMarriageInfo: string
+  wife: string
+  wifeMaidenName: string
+  marriageDetails: string
+  cemetery: string
+  additionalInfo: string
 }
 
 const client = new DynamoDBClient({region: 'eu-west-2'})
