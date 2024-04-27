@@ -12,10 +12,10 @@ export interface MemorialRecord {
   serviceDetails: string
   ageAtDeath: number
   dateOfDeath: Date
-  birthPlace: string
+  placeOfBirth: string
   parents: string
   motherMaidenName: string
-  parentsMarriageInfo: string
+  parentsMarriageDetails: string
   wife: string
   wifeMaidenName: string
   marriageDetails: string
