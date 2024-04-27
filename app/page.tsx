@@ -13,7 +13,7 @@ export default async function Memorial() {
           At the going down of the sun and in the morning<br/>
           We will remember them.
         </p>
-        <ul className="flex justify-center">{
+        <ul className="flex flex-col gap-3 items-center">{
           (await records).map((record: MemorialRecord) => {
             return <li key={record.nameInUrl}><Link href={`/memorial/${record.nameInUrl}`} className="no-underline">{record.nameOnMemorial}</Link></li>
           })
