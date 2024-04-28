@@ -1,6 +1,6 @@
 'use server'
 
-import { MemorialRecord, retrieveRecord } from "../../../dynamoDb";
+import { retrieveRecord } from "../../../dynamoDb";
 import RecordForm from "./recordForm";
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {

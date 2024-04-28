@@ -1,7 +1,7 @@
 'use client'
 
 import Main from "@/app/main"
-import { Input, Select } from "./input"
+import { Input, Select, Textarea } from "./input"
 import { FormEvent, useState, useTransition } from "react"
 import { MemorialRecord } from "@/app/dynamoDb"
 import SubmitButton from "@/app/submit-button"
@@ -67,7 +67,7 @@ export default function RecordForm(props: RecordFormProps) {
               <Input type="text" label="Wife's maiden name:" nameAndId="wifeMaidenName" value={record?.wifeMaidenName} placeholder="Johnson" required={true}/>
               <Input type="text" label="Marriage details:" nameAndId="marriageDetails" value={record?.marriageDetails} placeholder="Date and place of marriage" required={true}/>
               <Input type="text" label="Cemetery:" nameAndId="cemetery" value={record?.cemetery} placeholder="XYZ Cemetery" required={true}/>
-              <Input type="text" label="Additional information:" nameAndId="additionalInfo" value={record?.additionalInfo} placeholder="Any other information" required={true}/>
+              <Textarea label="Additional information:" nameAndId="additionalInfo" value={record?.additionalInfo} placeholder="Any other information" required={true}/>
             </div>
           </div>
           <div className="flex justify-center">
