@@ -1,14 +1,14 @@
 'use client'
 
 import Main from "@/app/main"
-import { Input, Select, Textarea } from "./input"
+import { Input, Select, Textarea } from "./[nameInUrl]/input"
 import { FormEvent, useState, useTransition } from "react"
 import { MemorialRecord } from "@/app/dynamoDb"
 import SubmitButton from "@/app/submit-button"
 import Link from "next/link"
 
 interface RecordFormProps {
-  record: MemorialRecord
+  record: MemorialRecord | null
 }
 
 export default function RecordForm(props: RecordFormProps) {
@@ -44,14 +44,18 @@ export default function RecordForm(props: RecordFormProps) {
   ]
 
   return (
-    <Main pageName={record.nameInUrl} heading={record.nameInUrl} content = {
+    <Main pageName={record?.nameInUrl ?? 'Create record'} heading={record?.nameInUrl ?? 'Create record'} content = {
       <>
         { errorMessage && (<p>{errorMessage}</p>) }
         { successMessage && (<p>{successMessage}</p>) }
         <form onSubmit={onSave}>
-          <input type="hidden" name="nameInUrl" value={record?.nameInUrl}/>
           <div className="border-b border-gray-900/10 pb-6">
             <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-10">
+              { record ? (
+                <input type="hidden" name="nameInUrl" value={record?.nameInUrl}/>
+              ) : (
+                <Input type="text" label="Name in URL:" nameAndId="nameInUrl" value="" placeholder="SurnameAB" required={true}/>
+              )}
               <Input type="text" label="Name on memorial:" nameAndId="nameOnMemorial" value={record?.nameOnMemorial} placeholder="Surname, A B" required={true}/>
               <Select label="Memorial panel:" nameAndId="memorialPanel" options={memorialPanelOptions} selectedValue={record?.memorialPanel} required={true}/>
               <Input type="text" label="Full name:" nameAndId="fullName" value={record?.fullName} placeholder="John Smith" required={true}/>
