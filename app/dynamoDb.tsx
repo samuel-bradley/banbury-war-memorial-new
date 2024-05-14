@@ -1,6 +1,6 @@
 'use server'
 
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand } from "@aws-sdk/client-dynamodb"
+import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand } from "@aws-sdk/client-dynamodb"
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb"
 
 export interface MemorialRecord {
@@ -57,5 +57,14 @@ export async function updateRecord(record: MemorialRecord): Promise<boolean> {
     Item: marshall(record)
   }
   const output = await client.send(new PutItemCommand(input))
+  return output.$metadata.httpStatusCode == 200
+}
+
+export async function deleteRecord(nameInUrl: string): Promise<boolean> {
+  const input: DeleteItemCommandInput = {
+    TableName: tableName,
+    Key: { ':nameInUrl': { S: nameInUrl }}
+  }
+  const output = await client.send(new DeleteItemCommand(input))
   return output.$metadata.httpStatusCode == 200
 }
