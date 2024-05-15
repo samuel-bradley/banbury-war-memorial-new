@@ -1,7 +1,7 @@
 'use client'
 
 import Main from "@/app/main"
-import { Input, Select, Textarea } from "./[nameInUrl]/input"
+import { Input, Select, Textarea } from "./input"
 import { FormEvent, useState, useTransition } from "react"
 import { MemorialRecord } from "@/app/dynamoDb"
 import SubmitButton from "@/app/submit-button"
