@@ -6,6 +6,7 @@ import { FormEvent, useState, useTransition } from "react"
 import { MemorialRecord } from "@/app/dynamoDb"
 import SubmitButton from "@/app/submit-button"
 import Link from "next/link"
+import {useRouter} from 'next/navigation'
 
 interface RecordFormProps {
   record: MemorialRecord | null
@@ -16,6 +17,7 @@ export default function RecordForm(props: RecordFormProps) {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [successMessage, setSuccessMessage] = useState<string>('')
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   async function onSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -34,6 +36,21 @@ export default function RecordForm(props: RecordFormProps) {
         if (error instanceof Error) setErrorMessage(error.message)
       }
     })
+  }
+
+  const handleDelete = async () => {
+    const result = await fetch(`/admin/records/delete/${record?.nameInUrl}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const wasDeleted = JSON.parse(await result.json())
+    if (wasDeleted) {
+      router.push(`/admin/records`);
+    } else {
+      setErrorMessage('Failed to delete.')
+    }
   }
   
   const memorialPanelOptions = [
@@ -74,10 +91,17 @@ export default function RecordForm(props: RecordFormProps) {
               <Textarea label="Additional information:" nameAndId="additionalInfo" value={record?.additionalInfo} placeholder="Any other information" required={true}/>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center space-x-2">
             <SubmitButton label="Save" isPending={isPending} pendingLabel="Saving..." classNames="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 disabled:hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"/>
           </div>
         </form>
+        <div className="flex justify-center space-x-2 mt-2">
+          { record &&
+              <button onClick={handleDelete} className="rounded-md bg-gray-500 px-3 py-2 font-semibold text-white shadow-sm hover:bg-gray-400 disabled:hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+                Delete
+              </button>
+          }
+        </div>
         <p className="mt-6 text-center"><Link href="/admin/records">Back to records</Link></p>
       </>
     }/>

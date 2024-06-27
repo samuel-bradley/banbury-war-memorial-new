@@ -63,7 +63,7 @@ export async function updateRecord(record: MemorialRecord): Promise<boolean> {
 export async function deleteRecord(nameInUrl: string): Promise<boolean> {
   const input: DeleteItemCommandInput = {
     TableName: tableName,
-    Key: { ':nameInUrl': { S: nameInUrl }}
+    Key: { 'nameInUrl': { S: nameInUrl }}
   }
   const output = await client.send(new DeleteItemCommand(input))
   return output.$metadata.httpStatusCode == 200
