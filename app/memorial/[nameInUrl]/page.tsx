@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { nameInUrl: string } }
             <li><strong>Wife's maiden name:</strong> {record.wifeMaidenName}</li>
             <li><strong>Marriage details:</strong> {record.marriageDetails}</li>
             <li><strong>Cemetery:</strong> {record.cemetery}</li>
-            <li><strong>Additional information:</strong> {record.additionalInfo}</li>
+            <li><strong>Additional information:</strong><div dangerouslySetInnerHTML={{ __html: record.additionalInfo }}/></li>
           </ul>
           <p>If you have any corrections or further information to add, please <a href="/contact">get in touch</a>.</p>
           <a href='/'>Back to memorial list</a>

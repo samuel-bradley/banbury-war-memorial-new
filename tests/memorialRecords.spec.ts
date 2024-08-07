@@ -63,7 +63,7 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
     await parentMarriageDetailsInput.fill('Married at some point')
     
     const wifeInput = page.getByLabel('Wife:')
-    await wifeInput.fill('Mary Smith')
+    await wifeInput.fill('Mary')
     
     const wifeMaidenNameInput = page.getByLabel("Wife's maiden name:")
     await wifeMaidenNameInput.fill('Jones')
@@ -80,7 +80,134 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
     const saveButton = page.getByText('Save')
     await saveButton.click()
 
-    expect(page.getByText('Record saved.')).toBeVisible()
+    await expect(page.getByText('Record saved.')).toBeVisible()
+  })
+
+  test('created record is visible and has correct values on public page', async () => {
+    await page.goto('http://localhost:3000/')
+
+    const recordLink = page.getByText('Playwright, A B')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+
+    await expect(page.getByText('Memorial panel: left')).toBeVisible()
+    await expect(page.getByText('Full name: Albert Bert Playwright')).toBeVisible()
+    await expect(page.getByText('Rank: Private')).toBeVisible()
+    await expect(page.getByText('Service details: Army')).toBeVisible()
+    await expect(page.getByText('Age at death: 29')).toBeVisible()
+    await expect(page.getByText('Date of death: 01/02/1943')).toBeVisible()
+    await expect(page.getByText('Place of birth: Banbury')).toBeVisible()
+    await expect(page.getByText('Parents: Alice and Bob')).toBeVisible()
+    await expect(page.getByText("Mother's maiden name: Adams")).toBeVisible()
+    await expect(page.getByText("Parents' marriage details: Married at some point")).toBeVisible()
+    await expect(page.getByText('Wife: Mary')).toBeVisible()
+    await expect(page.getByText("Wife's maiden name: Jones")).toBeVisible()
+    await expect(page.getByText('Marriage details: Married 1939')).toBeVisible()
+    await expect(page.getByText('Cemetery: Banbury Cemetery')).toBeVisible()
+    // Check HTML is not displayed raw
+    const additionalInformation = page.locator('li:has-text("Additional information:") div p')
+    await expect(additionalInformation).toHaveText('Some info')
+  })
+
+  test('updating existing record is successful', async () => {
+    await page.goto('http://localhost:3000/admin/records')
+
+    const recordLink = page.getByText('PlaywrightAB')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+
+    const nameOnMemorialInput = page.getByLabel('Name on memorial:')
+    await nameOnMemorialInput.fill('Playwright, A B C')
+
+    const memorialPanelSelect = page.getByLabel('Memorial panel:')
+    await memorialPanelSelect.selectOption('right')
+    
+    const fullNameInput = page.getByLabel('Full name:')
+    await fullNameInput.fill('Albert Bert Charles Playwright')
+    
+    const rankInput = page.getByLabel('Rank:')
+    await rankInput.fill('Corporal')
+    
+    const serviceDetailsInput = page.getByLabel('Service details:')
+    await serviceDetailsInput.fill('Navy')
+    
+    const ageAtDeathInput = page.getByLabel('Age at death:')
+    await ageAtDeathInput.fill('30')
+    
+    const dateOfDeathInput = page.getByLabel('Date of death:')
+    await dateOfDeathInput.fill('1943-02-02')
+    
+    const placeOfBirthInput = page.getByLabel('Place of birth:')
+    await placeOfBirthInput.fill('Oxford')
+    
+    const parentsInput = page.getByLabel('Parents:')
+    await parentsInput.fill('Bob and Alice')
+    
+    const motherMaidenNameInput = page.getByLabel("Mother's maiden name:")
+    await motherMaidenNameInput.fill('Bradford')
+    
+    const parentMarriageDetailsInput = page.getByLabel("Parents' marriage details:")
+    await parentMarriageDetailsInput.fill('Married sometime')
+    
+    const wifeInput = page.getByLabel('Wife:')
+    await wifeInput.fill('Elizabeth')
+    
+    const wifeMaidenNameInput = page.getByLabel("Wife's maiden name:")
+    await wifeMaidenNameInput.fill('Brown')
+    
+    const marriageDetailsInput = page.getByLabel('Marriage details:', { exact: true }) // disambiguate from parents' details
+    await marriageDetailsInput.fill('Married 1940')
+    
+    const cemeteryInput = page.getByLabel('Cemetery:')
+    await cemeteryInput.fill('Oxford Cemetery')
+    
+    const additionalInformationInput = page.getByLabel('Additional information:')
+    await additionalInformationInput.fill('<p>No more info</p>')
+    
+    const saveButton = page.getByText('Save')
+    await saveButton.click()
+
+    await expect(page.getByText('Record saved.')).toBeVisible()
+  })
+
+  test('updated record is visible and has correct values on public page', async () => {
+    await page.goto('http://localhost:3000/')
+
+    const recordLink = page.getByText('Playwright, A B')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+
+    await expect(page.getByText('Memorial panel: right')).toBeVisible()
+    await expect(page.getByText('Full name: Albert Bert Charles Playwright')).toBeVisible()
+    await expect(page.getByText('Rank: Corporal')).toBeVisible()
+    await expect(page.getByText('Service details: Navy')).toBeVisible()
+    await expect(page.getByText('Age at death: 30')).toBeVisible()
+    await expect(page.getByText('Date of death: 02/02/1943')).toBeVisible()
+    await expect(page.getByText('Place of birth: Oxford')).toBeVisible()
+    await expect(page.getByText('Parents: Bob and Alice')).toBeVisible()
+    await expect(page.getByText("Mother's maiden name: Bradford")).toBeVisible()
+    await expect(page.getByText("Parents' marriage details: Married sometime")).toBeVisible()
+    await expect(page.getByText('Wife: Elizabeth')).toBeVisible()
+    await expect(page.getByText("Wife's maiden name: Brown")).toBeVisible()
+    await expect(page.getByText('Marriage details: Married 1940')).toBeVisible()
+    await expect(page.getByText('Cemetery: Oxford Cemetery')).toBeVisible()
+    // Check HTML is not displayed raw
+    const additionalInformation = page.locator('li:has-text("Additional information:") div p')
+    await expect(additionalInformation).toHaveText('No more info')
+  })
+
+  test('deleting record is successful', async () => {
+    await page.goto('http://localhost:3000/admin/records')
+
+    const recordLink = page.getByText('PlaywrightAB')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+    
+    const deleteButton = page.getByText('Delete')
+    await deleteButton.click()
+    
+    await page.waitForURL('http://localhost:3000/admin/records')
+    expect(page.getByText('PlaywrightAB')).not.toBeVisible
   })
 
 })
