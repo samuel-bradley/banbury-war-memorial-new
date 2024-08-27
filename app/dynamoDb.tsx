@@ -7,20 +7,20 @@ export interface MemorialRecord {
   nameInUrl: string
   nameOnMemorial: string
   memorialPanel: string
-  fullName: string
-  rank: string
-  serviceDetails: string
-  ageAtDeath: number
-  dateOfDeath: Date
-  placeOfBirth: string
-  parents: string
-  motherMaidenName: string
-  parentsMarriageDetails: string
-  wife: string
-  wifeMaidenName: string
-  marriageDetails: string
-  cemetery: string
-  additionalInfo: string
+  fullName?: string | null
+  rank?: string | null
+  serviceDetails?: string | null
+  ageAtDeath?: number | null
+  dateOfDeath?: Date | null
+  placeOfBirth?: string | null
+  parents?: string | null
+  motherMaidenName?: string | null
+  parentsMarriageDetails?: string | null
+  wife?: string | null
+  wifeMaidenName?: string | null
+  marriageDetails?: string | null
+  cemetery?: string | null
+  additionalInfo?: string | null
 }
 
 const client = new DynamoDBClient({region: 'eu-west-2'})
@@ -54,7 +54,7 @@ export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord 
 export async function updateRecord(record: MemorialRecord): Promise<boolean> {
   const input: PutItemCommandInput = {
     TableName: tableName,
-    Item: marshall(record)
+    Item: marshall(record, {convertEmptyValues: true, removeUndefinedValues: true})
   }
   const output = await client.send(new PutItemCommand(input))
   return output.$metadata.httpStatusCode == 200

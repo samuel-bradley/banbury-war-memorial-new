@@ -211,3 +211,78 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
   })
 
 })
+
+test.describe('creating, viewing and deleting minimal memorial records', () => {
+
+  let page: Page
+  test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage()
+  })
+
+  test('logging in as admin redirects to admin page', async () => {
+    await page.goto('http://localhost:3000/admin/login')
+      
+    const passwordInput = page.getByPlaceholder('Password')
+    await passwordInput.fill('password')
+
+    const logInButton = page.getByText('Log in')
+    await logInButton.click()
+
+    await page.waitForURL('http://localhost:3000/admin/records')
+  })
+
+  test('creating new record is successful', async () => {
+    const createButton = page.getByText('Create')
+    await createButton.click()
+    await page.waitForURL('http://localhost:3000/admin/records/create')
+
+    const nameInUrlInput = page.getByLabel('Name in URL:')
+    await nameInUrlInput.fill('PlaywrightAB')
+
+    const nameOnMemorialInput = page.getByLabel('Name on memorial:')
+    await nameOnMemorialInput.fill('Playwright, A B')
+    
+    const saveButton = page.getByText('Save')
+    await saveButton.click()
+
+    await expect(page.getByText('Record saved.')).toBeVisible()
+  })
+
+  test('created record is visible and has correct values on public page', async () => {
+    await page.goto('http://localhost:3000/')
+
+    const recordLink = page.getByText('Playwright, A B')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+
+    await expect(page.getByText('Memorial panel: none')).toBeVisible()
+    await expect(page.getByText('Full name: unknown')).toBeVisible()
+    await expect(page.getByText('Rank: unknown')).toBeVisible()
+    await expect(page.getByText('Service details: unknown')).toBeVisible()
+    await expect(page.getByText('Age at death: unknown')).toBeVisible()
+    await expect(page.getByText('Date of death: unknown')).toBeVisible()
+    await expect(page.getByText('Place of birth: unknown')).toBeVisible()
+    await expect(page.getByText('Parents: unknown')).toBeVisible()
+    await expect(page.getByText("Mother's maiden name: unknown")).toBeVisible()
+    await expect(page.getByText("Parents' marriage details: unknown", {exact: true})).toBeVisible()
+    await expect(page.getByText('Wife: unknown')).toBeVisible()
+    await expect(page.getByText("Wife's maiden name: unknown")).toBeVisible()
+    await expect(page.getByText('Marriage details: unknown', {exact: true})).toBeVisible()
+    await expect(page.getByText('Cemetery: unknown')).toBeVisible()
+  })
+
+  test('deleting record is successful', async () => {
+    await page.goto('http://localhost:3000/admin/records')
+
+    const recordLink = page.getByText('PlaywrightAB')
+    await recordLink.click()
+    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+    
+    const deleteButton = page.getByText('Delete')
+    await deleteButton.click()
+    
+    await page.waitForURL('http://localhost:3000/admin/records')
+    expect(page.getByText('PlaywrightAB')).not.toBeVisible
+  })
+
+})

@@ -60,6 +60,11 @@ export default function RecordForm(props: RecordFormProps) {
     { value: 'right', label: 'right' }
   ]
 
+  const dateOfDeathValue = (record?: MemorialRecord | null): string => {
+    if (!record?.dateOfDeath) return '';
+    return new Date(record?.dateOfDeath).toISOString().split('T')[0];
+  }
+
   return (
     <Main pageName={record?.nameInUrl ?? 'Create record'} heading={record?.nameInUrl ?? 'Create record'} content = {
       <>
@@ -75,20 +80,20 @@ export default function RecordForm(props: RecordFormProps) {
               )}
               <Input type="text" label="Name on memorial:" nameAndId="nameOnMemorial" value={record?.nameOnMemorial} placeholder="Surname, A B" required={true}/>
               <Select label="Memorial panel:" nameAndId="memorialPanel" options={memorialPanelOptions} selectedValue={record?.memorialPanel} required={true}/>
-              <Input type="text" label="Full name:" nameAndId="fullName" value={record?.fullName} placeholder="John Smith" required={false}/>
-              <Input type="text" label="Rank:" nameAndId="rank" value={record?.rank} placeholder="Captain" required={false}/>
-              <Input type="text" label="Service details:" nameAndId="serviceDetails" value={record?.serviceDetails} placeholder="Service number and branch" required={false}/>
-              <Input type="number" label="Age at death:" nameAndId="ageAtDeath" value={record?.ageAtDeath} placeholder="42" required={false}/>
-              <Input type="date" label="Date of death:" nameAndId="dateOfDeath" value={record?.dateOfDeath && new Date(record?.dateOfDeath).toISOString().split('T')[0]} placeholder="" required={false}/>
-              <Input type="text" label="Place of birth:" nameAndId="placeOfBirth" value={record?.placeOfBirth} placeholder="New York, USA" required={false}/>
-              <Input type="text" label="Parents:" nameAndId="parents" value={record?.parents} placeholder="John Smith and Jane Smith" required={false}/>
-              <Input type="text" label="Mother's maiden name:" nameAndId="motherMaidenName" value={record?.motherMaidenName} placeholder="Jones" required={false}/>
-              <Input type="text" label="Parents' marriage details:" nameAndId="parentsMarriageDetails" value={record?.parentsMarriageDetails} placeholder="Date and place of marriage" required={false}/>
-              <Input type="text" label="Wife:" nameAndId="wife" value={record?.wife} placeholder="Mary Smith" required={false}/>
-              <Input type="text" label="Wife's maiden name:" nameAndId="wifeMaidenName" value={record?.wifeMaidenName} placeholder="Johnson" required={false}/>
-              <Input type="text" label="Marriage details:" nameAndId="marriageDetails" value={record?.marriageDetails} placeholder="Date and place of marriage" required={false}/>
-              <Input type="text" label="Cemetery:" nameAndId="cemetery" value={record?.cemetery} placeholder="XYZ Cemetery" required={false}/>
-              <Textarea label="Additional information:" nameAndId="additionalInfo" value={record?.additionalInfo} placeholder="Any other information" required={false}/>
+              <Input type="text" label="Full name:" nameAndId="fullName" value={record?.fullName ?? ''} placeholder="John Smith" required={false}/>
+              <Input type="text" label="Rank:" nameAndId="rank" value={record?.rank ?? ''} placeholder="Captain" required={false}/>
+              <Input type="text" label="Service details:" nameAndId="serviceDetails" value={record?.serviceDetails ?? ''} placeholder="Service number and branch" required={false}/>
+              <Input type="number" label="Age at death:" nameAndId="ageAtDeath" value={record?.ageAtDeath ?? ''} placeholder="42" required={false}/>
+              <Input type="date" label="Date of death:" nameAndId="dateOfDeath" value={dateOfDeathValue(record)} placeholder="" required={false}/>
+              <Input type="text" label="Place of birth:" nameAndId="placeOfBirth" value={record?.placeOfBirth ?? ''} placeholder="New York, USA" required={false}/>
+              <Input type="text" label="Parents:" nameAndId="parents" value={record?.parents ?? ''} placeholder="John Smith and Jane Smith" required={false}/>
+              <Input type="text" label="Mother's maiden name:" nameAndId="motherMaidenName" value={record?.motherMaidenName ?? ''} placeholder="Jones" required={false}/>
+              <Input type="text" label="Parents' marriage details:" nameAndId="parentsMarriageDetails" value={record?.parentsMarriageDetails ?? ''} placeholder="Date and place of marriage" required={false}/>
+              <Input type="text" label="Wife:" nameAndId="wife" value={record?.wife ?? ''} placeholder="Mary Smith" required={false}/>
+              <Input type="text" label="Wife's maiden name:" nameAndId="wifeMaidenName" value={record?.wifeMaidenName ?? ''} placeholder="Johnson" required={false}/>
+              <Input type="text" label="Marriage details:" nameAndId="marriageDetails" value={record?.marriageDetails ?? ''} placeholder="Date and place of marriage" required={false}/>
+              <Input type="text" label="Cemetery:" nameAndId="cemetery" value={record?.cemetery ?? ''} placeholder="XYZ Cemetery" required={false}/>
+              <Textarea label="Additional information:" nameAndId="additionalInfo" value={record?.additionalInfo ?? ''} placeholder="Any other information" required={false}/>
             </div>
           </div>
           <div className="flex justify-center space-x-2">
