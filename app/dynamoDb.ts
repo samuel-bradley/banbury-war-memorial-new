@@ -23,10 +23,10 @@ export interface MemorialRecord {
   additionalInfo?: string | null
 }
 
-const client = new DynamoDBClient({region: 'eu-west-2'})
-if (!process.env.ENVIRONMENT) {
-  throw new Error("No environment set.")
-}
+if (!process.env.AWS_REGION) throw new Error("No AWS region set.")
+if (!process.env.ENVIRONMENT) throw new Error("No environment set.")
+
+const client = new DynamoDBClient({region: process.env.AWS_REGION})
 const tableName = `banbury-war-memorial-${process.env.ENVIRONMENT}`
 
 export async function listRecords(): Promise<MemorialRecord[]> {

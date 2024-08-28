@@ -4,9 +4,12 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 export default async function sendEmail(fromAddress: string, subject: string, message: string): Promise<string> {
 
-  const sesClient = new SESClient({region: 'eu-west-2'})
+  if (!process.env.AWS_REGION) throw new Error("No AWS region set.")
+  if (!process.env.CONTACT_EMAIL_ADDRESS) throw new Error('No contact email address set.')
+
   const toAddress = process.env.CONTACT_EMAIL_ADDRESS
-  if (!toAddress) throw new Error('No contact email address set.')
+  const sesClient = new SESClient({region: toAddress})
+  
   const sendEmailCommand = new SendEmailCommand({
     Destination: {
       ToAddresses: [toAddress]
