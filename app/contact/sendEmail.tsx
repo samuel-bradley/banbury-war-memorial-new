@@ -5,7 +5,8 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 export default async function sendEmail(fromAddress: string, subject: string, message: string): Promise<string> {
 
   const sesClient = new SESClient({region: 'eu-west-2'})
-  const toAddress = 'samueljbradley94@gmail.com'
+  const toAddress = process.env.CONTACT_EMAIL_ADDRESS
+  if (!toAddress) throw new Error('No contact email address set.')
   const sendEmailCommand = new SendEmailCommand({
     Destination: {
       ToAddresses: [toAddress]
