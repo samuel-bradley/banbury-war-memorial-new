@@ -1,7 +1,7 @@
 'use server'
 
-import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand } from "@aws-sdk/client-dynamodb"
-import { marshall, unmarshall } from "@aws-sdk/util-dynamodb"
+import { DeleteItemCommand, DeleteItemCommandInput, DynamoDBClient, PutItemCommand, PutItemCommandInput, QueryCommand, QueryCommandInput, ScanCommand } from '@aws-sdk/client-dynamodb'
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 
 export interface MemorialRecord {
   nameInUrl: string
@@ -23,8 +23,8 @@ export interface MemorialRecord {
   additionalInfo?: string | null
 }
 
-if (!process.env.AWS_REGION) throw new Error("No AWS region set.")
-if (!process.env.ENVIRONMENT) throw new Error("No environment set.")
+if (!process.env.AWS_REGION) throw new Error('No AWS region set.')
+if (!process.env.ENVIRONMENT) throw new Error('No environment set.')
 
 const client = new DynamoDBClient({region: process.env.AWS_REGION})
 const tableName = `banbury-war-memorial-${process.env.ENVIRONMENT}`

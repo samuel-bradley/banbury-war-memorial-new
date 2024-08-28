@@ -1,4 +1,4 @@
-import Navigation from "./navigation"
+import Navigation from './navigation'
 
 export default function Main(
     {pageName, heading, content}: Readonly<{pageName: string, heading: string, content: React.ReactNode}>

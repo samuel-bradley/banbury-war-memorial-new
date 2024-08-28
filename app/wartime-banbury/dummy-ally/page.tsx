@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import Main from "../../main"
+import Image from 'next/image'
+import Link from 'next/link'
+import Main from '../../main'
 
 export default function DummyAlly() {
   return (

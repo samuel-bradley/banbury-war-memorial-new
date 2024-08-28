@@ -1,7 +1,7 @@
 'use client'
 
-import Main from "../../main"
-import SubmitButton from "../../submit-button"
+import Main from '../../main'
+import SubmitButton from '../../submit-button'
 import { useState, useTransition } from 'react'
 import { authenticate } from './authenticate'
  
@@ -14,7 +14,7 @@ export default function Page() {
     startTransition(async () => {
       const formData = new FormData(event.currentTarget)
       const errorMessage = await authenticate(formData.get('password') as string)
-      if (typeof errorMessage == "string") setMessage(errorMessage)
+      if (typeof errorMessage == 'string') setMessage(errorMessage)
     })
   }
 

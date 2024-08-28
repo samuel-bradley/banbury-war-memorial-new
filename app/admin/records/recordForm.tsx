@@ -1,11 +1,11 @@
 'use client'
 
-import Main from "@/app/main"
-import { Input, Select, Textarea } from "./input"
-import { FormEvent, useState, useTransition } from "react"
-import { MemorialRecord } from "@/app/dynamoDb"
-import SubmitButton from "@/app/submit-button"
-import Link from "next/link"
+import Main from '@/app/main'
+import { Input, Select, Textarea } from './input'
+import { FormEvent, useState, useTransition } from 'react'
+import { MemorialRecord } from '@/app/dynamoDb'
+import SubmitButton from '@/app/submit-button'
+import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 
 interface RecordFormProps {
@@ -47,7 +47,7 @@ export default function RecordForm(props: RecordFormProps) {
     })
     const wasDeleted = JSON.parse(await result.json())
     if (wasDeleted) {
-      router.push(`/admin/records`)
+      router.push('/admin/records')
     } else {
       setErrorMessage('Failed to delete.')
     }

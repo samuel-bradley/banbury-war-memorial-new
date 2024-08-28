@@ -1,5 +1,5 @@
-import { MemorialRecord, retrieveRecord } from "../../dynamoDb"
-import Main from "../../main"
+import { MemorialRecord, retrieveRecord } from '../../dynamoDb'
+import Main from '../../main'
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {
   const record = await retrieveRecord(params.nameInUrl)

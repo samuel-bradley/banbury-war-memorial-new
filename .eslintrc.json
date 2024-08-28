@@ -3,6 +3,7 @@
   "plugins": ["@stylistic/ts"],
   "rules": {
     "react/no-unescaped-entities": "off",
-    "@stylistic/ts/semi": ["error", "never"]
+    "@stylistic/ts/semi": ["error", "never"],
+    "@stylistic/ts/quotes": ["error", "single"]
   }
 }

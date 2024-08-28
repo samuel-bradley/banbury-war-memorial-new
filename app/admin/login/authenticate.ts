@@ -16,9 +16,9 @@ export async function authenticate(password: string): Promise<any> {
 
 function checkPassword(password: string) {
   if (!process.env.ADMIN_PASSWORD) {
-    throw new Error("No admin password set.")
+    throw new Error('No admin password set.')
   }
   if (password != process.env.ADMIN_PASSWORD) {
-    throw new Error("Incorrect password.")
+    throw new Error('Incorrect password.')
   }
 }
