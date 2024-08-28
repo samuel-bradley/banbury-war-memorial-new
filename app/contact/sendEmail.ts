@@ -1,6 +1,6 @@
 'use server'
 
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
 
 export default async function sendEmail(fromAddress: string, subject: string, message: string): Promise<string> {
 
@@ -9,7 +9,7 @@ export default async function sendEmail(fromAddress: string, subject: string, me
 
   const toAddress = process.env.CONTACT_EMAIL_ADDRESS
   const sesClient = new SESClient({region: toAddress})
-  
+
   const sendEmailCommand = new SendEmailCommand({
     Destination: {
       ToAddresses: [toAddress]

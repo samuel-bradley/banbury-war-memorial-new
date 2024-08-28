@@ -22,7 +22,7 @@ export async function isLoggedIn() {
     const session = JSON.parse(decrypt(sessionCookie))
     return session.isLoggedIn
   }
-  return false;
+  return false
 }
 
 function encrypt(data: string) {
@@ -32,6 +32,6 @@ function encrypt(data: string) {
 
 function decrypt(data: string) {
   if (!process.env.ENCRYPTION_KEY) throw new Error('No encryption key set.')
-  const bytes = CryptoJS.AES.decrypt(data, process.env.ENCRYPTION_KEY);
-  return bytes.toString(CryptoJS.enc.Utf8);
+  const bytes = CryptoJS.AES.decrypt(data, process.env.ENCRYPTION_KEY)
+  return bytes.toString(CryptoJS.enc.Utf8)
 }

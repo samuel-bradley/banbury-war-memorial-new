@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import Main from "../main";
+import Image from "next/image"
+import Link from "next/link"
+import Main from "../main"
 
 export default function About() {
   return (
@@ -62,5 +62,5 @@ export default function About() {
         <p>It is important to us that these men are remembered, and do not become just names on a list.</p>
       </>
     }/>
-  );
+  )
 }

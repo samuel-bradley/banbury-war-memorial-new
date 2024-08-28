@@ -1,7 +1,7 @@
 'use server'
 
-import { retrieveRecord } from "../../../dynamoDb";
-import RecordForm from "../recordForm";
+import { retrieveRecord } from "../../../dynamoDb"
+import RecordForm from "../recordForm"
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {
   const record = await retrieveRecord(params.nameInUrl)

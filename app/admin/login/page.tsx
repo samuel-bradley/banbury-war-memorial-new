@@ -6,7 +6,7 @@ import { useState, useTransition } from 'react'
 import { authenticate } from './authenticate'
  
 export default function Page() {
-  const [errorMessage, setMessage] = useState<string>('');
+  const [errorMessage, setMessage] = useState<string>('')
   const [isPending, startTransition] = useTransition()
 
   const onLogin: React.FormEventHandler<HTMLFormElement> = async (event) => {

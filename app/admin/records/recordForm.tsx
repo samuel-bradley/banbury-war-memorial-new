@@ -47,7 +47,7 @@ export default function RecordForm(props: RecordFormProps) {
     })
     const wasDeleted = JSON.parse(await result.json())
     if (wasDeleted) {
-      router.push(`/admin/records`);
+      router.push(`/admin/records`)
     } else {
       setErrorMessage('Failed to delete.')
     }
@@ -61,8 +61,8 @@ export default function RecordForm(props: RecordFormProps) {
   ]
 
   const dateOfDeathValue = (record?: MemorialRecord | null): string => {
-    if (!record?.dateOfDeath) return '';
-    return new Date(record?.dateOfDeath).toISOString().split('T')[0];
+    if (!record?.dateOfDeath) return ''
+    return new Date(record?.dateOfDeath).toISOString().split('T')[0]
   }
 
   return (

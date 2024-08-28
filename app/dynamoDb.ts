@@ -46,7 +46,7 @@ export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord 
     TableName: tableName,
     KeyConditionExpression: 'nameInUrl = :nameInUrl',
     ExpressionAttributeValues: { ':nameInUrl': { S: nameInUrl }},
-  };
+  }
   const output = await client.send(new QueryCommand(input))
   return (output.Items) ? (unmarshall(output.Items[0]) as MemorialRecord) : undefined
 }

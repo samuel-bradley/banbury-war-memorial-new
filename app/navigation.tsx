@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"
 
 export default function Navigation({currentPage}: {currentPage: string}) {
   return (
@@ -8,5 +8,5 @@ export default function Navigation({currentPage}: {currentPage: string}) {
       <Link href="/wartime-banbury" className="hover:underline" aria-current={currentPage == "wartime-banbury" ? "page" : undefined}>Wartime Banbury</Link>
       <Link href="/contact" className="hover:underline" aria-current={currentPage == "contact" ? "page" : undefined}>Contact</Link>
     </nav>
-  );
+  )
 }

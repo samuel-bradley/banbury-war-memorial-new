@@ -13,7 +13,7 @@ export default function Contact() {
   const onSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     startTransition(async () => {
-      const formData = new FormData(event.currentTarget);
+      const formData = new FormData(event.currentTarget)
       const message: string = await sendEmail(
         formData.get('from') as string,
         formData.get('subject') as string,
