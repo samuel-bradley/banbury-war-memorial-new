@@ -1,6 +1,6 @@
 'use server'
 
-import { MemorialRecord, updateRecord } from '../../../dynamoDb'
+import { MemorialRecord, updateRecord } from '@/dynamoDb'
 
 export async function POST(request: Request) {
   try {

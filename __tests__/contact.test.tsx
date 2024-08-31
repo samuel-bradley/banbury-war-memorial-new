@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import Contact from '@/app/contact/page'
-import sendEmail from '../app/contact/sendEmail';
+import Contact from '@/contact/page'
+import sendEmail from '@/contact/sendEmail';
 
 jest.mock('../app/submit-button', () => () => <button type="submit"/>)
 jest.mock('../app/contact/sendEmail', () => ({

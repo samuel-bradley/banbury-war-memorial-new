@@ -1,6 +1,6 @@
 'use server'
 
-import { retrieveRecord } from '../../../../dynamoDb'
+import { retrieveRecord } from '@/dynamoDb'
 
 export async function GET(_: Request, { params }: { params: { nameInUrl: string } }) {
   try {

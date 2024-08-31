@@ -1,6 +1,6 @@
 'use server'
 
-import { deleteRecord } from '@/app/dynamoDb'
+import { deleteRecord } from '@/dynamoDb'
 
 export async function POST(_: Request, { params }: { params: { nameInUrl: string } }) {
   try {

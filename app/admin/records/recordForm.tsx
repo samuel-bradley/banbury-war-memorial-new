@@ -1,10 +1,10 @@
 'use client'
 
-import Main from '@/app/main'
-import { Input, Select, Textarea } from './input'
+import Main from '@/main'
+import { Input, Select, Textarea } from '@/admin/records/input'
 import { FormEvent, useState, useTransition } from 'react'
-import { MemorialRecord } from '@/app/dynamoDb'
-import SubmitButton from '@/app/submit-button'
+import { MemorialRecord } from '@/dynamoDb'
+import SubmitButton from '@/submit-button'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import About from '@/app/about/page'
+import About from '@/about/page'
 
 describe('About', () => {
   it('marks the current page as current', () => {
