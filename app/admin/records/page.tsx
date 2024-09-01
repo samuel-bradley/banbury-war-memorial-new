@@ -11,7 +11,7 @@ export default function Page() {
   const [errorMessage, setMessage] = useState<string>('')
  
   useEffect(() => {
-    fetch('/admin/records/list')
+    fetch('/api/records/list')
       .then((res: Response) => res.json())
       .then((json) => {
         const records = JSON.parse(json) as MemorialRecord[]

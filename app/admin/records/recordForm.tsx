@@ -24,9 +24,10 @@ export default function RecordForm(props: RecordFormProps) {
     startTransition(async () => {
       try {
         const formData = new FormData(event.currentTarget)
-        const postBody = JSON.stringify(Object.fromEntries(formData.entries()))
-        const response = await fetch('/admin/records/update', {
-          method: 'POST',
+        const formDataObject = Object.fromEntries(formData.entries())
+        const postBody = JSON.stringify(formDataObject)
+        const response = await fetch(`/api/records/${formDataObject.nameInUrl}`, {
+          method: 'PUT',
           body: postBody,
         })
         if (!response.ok) throw new Error('Failed to save.')
@@ -39,8 +40,8 @@ export default function RecordForm(props: RecordFormProps) {
   }
 
   const handleDelete = async () => {
-    const result = await fetch(`/admin/records/delete/${record?.nameInUrl}`, {
-      method: 'POST',
+    const result = await fetch(`/api/records/${record?.nameInUrl}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
