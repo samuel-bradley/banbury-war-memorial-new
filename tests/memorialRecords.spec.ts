@@ -210,6 +210,11 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
     expect(page.getByText('PlaywrightAB')).not.toBeVisible
   })
 
+  test('viewing deleted record gives a 404 page', async () => {
+    await page.goto('http://localhost:3000/memorial/PlaywrightAB')
+    expect(page.getByText('Sorry, but the page you tried to access was not found.')).toBeVisible
+  })
+
 })
 
 test.describe('creating, viewing and deleting minimal memorial records', () => {

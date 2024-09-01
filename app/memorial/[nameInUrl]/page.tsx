@@ -1,5 +1,6 @@
 import { MemorialRecord, retrieveRecord } from '@/dynamoDb'
 import Main from '@/main'
+import { notFound } from 'next/navigation'
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {
   const record = await retrieveRecord(params.nameInUrl)
@@ -40,7 +41,5 @@ export default async function Page({ params }: { params: { nameInUrl: string } }
       }/>
     )
   }
-  return (
-    'Not Found' // TODO proper 404 page
-  )
+  return notFound()
 }
