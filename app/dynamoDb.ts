@@ -48,7 +48,7 @@ export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord 
     ExpressionAttributeValues: { ':nameInUrl': { S: nameInUrl }},
   }
   const output = await client.send(new QueryCommand(input))
-  return (output.Items) ? (unmarshall(output.Items[0]) as MemorialRecord) : undefined
+  return (output.Items && output.Items.length === 1) ? (unmarshall(output.Items[0]) as MemorialRecord) : undefined
 }
 
 export async function updateRecord(record: MemorialRecord): Promise<boolean> {
