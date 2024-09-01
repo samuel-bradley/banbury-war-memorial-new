@@ -8,7 +8,7 @@ export default async function sendEmail(fromAddress: string, subject: string, me
   if (!process.env.CONTACT_EMAIL_ADDRESS) throw new Error('No contact email address set.')
 
   const toAddress = process.env.CONTACT_EMAIL_ADDRESS
-  const sesClient = new SESClient({region: toAddress})
+  const sesClient = new SESClient({region: process.env.AWS_REGION})
 
   const sendEmailCommand = new SendEmailCommand({
     Destination: {
@@ -32,5 +32,7 @@ export default async function sendEmail(fromAddress: string, subject: string, me
   
   return sesClient.send(sendEmailCommand)
     .then(() => { return 'Thank you for your message - I\'ll try to get back to you soon.' })
-    .catch(() => { return `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` })
+    .catch((error) => {
+      console.log(JSON.stringify(error))
+      return `Sorry, something went wrong. You can reach me directly at <a href="mailto:${toAddress}">${toAddress}</a>.` })
 }
