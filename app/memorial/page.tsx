@@ -3,7 +3,7 @@ import { MemorialRecord, listRecords } from '@/dynamoDb'
 import Main from '@/main'
 
 export default async function Memorial() {
-  const records = listRecords()
+  const records = await listRecords()
   return (
     <Main pageName="memorial" heading="Memorial" content = {
       <>
@@ -14,7 +14,7 @@ export default async function Memorial() {
           We will remember them.
         </p>
         <ul className="flex flex-col gap-3 items-center">{
-          (await records).map((record: MemorialRecord) => {
+          records.map((record: MemorialRecord) => {
             return <li key={record.nameInUrl}><Link href={`/memorial/${record.nameInUrl}`} className="no-underline">{record.nameOnMemorial}</Link></li>
           })
         }</ul>

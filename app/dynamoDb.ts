@@ -35,10 +35,11 @@ export async function listRecords(): Promise<MemorialRecord[]> {
       TableName: tableName
     })
   )
-  return output.Items?.map((item) => {
+  const records = output.Items?.map((item) => {
     const itemWithoutTypes = unmarshall(item)
     return itemWithoutTypes as MemorialRecord
   }) ?? []
+  return records.sort((a, b) => a.nameOnMemorial < b.nameOnMemorial ? -1 : 1)
 }
 
 export async function retrieveRecord(nameInUrl: string): Promise<MemorialRecord | undefined> {
