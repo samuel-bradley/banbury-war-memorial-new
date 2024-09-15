@@ -1,9 +1,9 @@
 'use client'
 
-import Main from '@/main'
-import SubmitButton from '@/submit-button'
+import Main from '@/components/main'
+import SubmitButton from '@/components/submit-button'
 import { useState, useTransition } from 'react'
-import { authenticate } from '@/admin/login/authenticate'
+import { authenticate } from '@/admin/lib/authenticate'
  
 export default function Page() {
   const [errorMessage, setMessage] = useState<string>('')

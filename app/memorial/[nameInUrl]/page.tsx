@@ -1,5 +1,5 @@
-import { MemorialRecord, retrieveRecord } from '@/dynamoDb'
-import Main from '@/main'
+import { MemorialRecord, retrieveRecord } from '@/lib/dynamoDb'
+import Main from '@/components/main'
 import { notFound } from 'next/navigation'
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {

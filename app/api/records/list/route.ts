@@ -1,6 +1,6 @@
 'use server'
 
-import { listRecords } from '@/dynamoDb'
+import { listRecords } from '@/lib/dynamoDb'
 
 export async function GET() {
   try {

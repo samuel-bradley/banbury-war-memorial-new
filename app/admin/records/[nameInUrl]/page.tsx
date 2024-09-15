@@ -1,6 +1,6 @@
 'use server'
 
-import { retrieveRecord } from '@/dynamoDb'
+import { retrieveRecord } from '@/lib/dynamoDb'
 import RecordForm from '@/admin/records/recordForm'
 
 export default async function Page({ params }: { params: { nameInUrl: string } }) {

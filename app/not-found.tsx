@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Main from '@/main'
+import Main from '@/components/main'
 
 export default async function Memorial() {
   return (

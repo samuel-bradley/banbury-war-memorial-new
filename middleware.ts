@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server'
-import { isLoggedIn } from '@/admin/login/session'
+import { isLoggedIn } from '@/admin/lib/session'
  
 export async function middleware(request: NextRequest) {
 

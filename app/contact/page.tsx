@@ -1,8 +1,8 @@
 'use client'
 
-import Main from '@/main'
-import SubmitButton from '@/submit-button'
-import sendEmail from '@/contact/sendEmail'
+import Main from '@/components/main'
+import SubmitButton from '@/components/submit-button'
+import sendEmail from '@/lib/sendEmail'
 import { useState, useTransition } from 'react'
 import ReactHtmlParser from 'html-react-parser'
 

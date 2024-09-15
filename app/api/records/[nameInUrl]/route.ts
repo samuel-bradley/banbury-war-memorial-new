@@ -1,6 +1,6 @@
 'use server'
 
-import { deleteRecord, MemorialRecord, retrieveRecord, updateRecord } from '@/dynamoDb'
+import { deleteRecord, MemorialRecord, retrieveRecord, updateRecord } from '@/lib/dynamoDb'
 
 export async function GET(_: Request, { params }: { params: { nameInUrl: string } }) {
   try {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Main from '@/main'
+import Main from '@/components/main'
 
 export default function SouthamRoadBurials() {
   return (

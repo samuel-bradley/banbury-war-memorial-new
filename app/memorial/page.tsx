@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { MemorialRecord, listRecords } from '@/dynamoDb'
-import Main from '@/main'
+import { MemorialRecord, listRecords } from '@/lib/dynamoDb'
+import Main from '@/components/main'
 
 export default async function Memorial() {
   const records = await listRecords()

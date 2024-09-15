@@ -1,6 +1,6 @@
 'use server'
 
-import { logIn } from '@/admin/login/session'
+import { logIn } from '@/admin/lib/session'
   
 export async function authenticate(password: string): Promise<any> {
   try {
