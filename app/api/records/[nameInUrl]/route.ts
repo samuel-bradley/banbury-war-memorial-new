@@ -2,15 +2,15 @@
 
 import { deleteRecord, MemorialRecord, retrieveRecord, updateRecord } from '@/lib/dynamoDb'
 
-export async function GET(_: Request, { params }: { params: { nameInUrl: string } }) {
-  try {
-    const record = await retrieveRecord(params.nameInUrl)
-    const json = JSON.stringify(record)
-    return Response.json(json)
-  } catch (error) {
-    console.error('Error fetching record:', error)
-    return Response.error
-  }
+export async function GET(_: Request, { params }: { params: { nameInUrl: string } }): Promise<Response> {
+  return retrieveRecord(params.nameInUrl)
+    .then((record) => {
+      return Response.json(JSON.stringify(record), { status: 200 })
+    })
+    .catch((error) => {
+      console.error('Error retrieving record:', error)
+      return Response.json(JSON.stringify({ error: 'Failed to retrieve record.' }), { status: 404 })
+    })
 }
 
 export async function PUT(request: Request) {
@@ -18,10 +18,10 @@ export async function PUT(request: Request) {
     const record = await request.json() as MemorialRecord
     const result: boolean = await updateRecord(record)
     if (!result) throw new Error('Unknown error')
-    return Response.json(true)
+      return new Response('true', { status: 200 })
   } catch (error) {
     console.error('Error updating record:', error)
-    return Response.error
+    return new Response('Failed to update record.', { status: 500 })
   }
 }
 
@@ -30,7 +30,7 @@ export async function DELETE(_: Request, { params }: { params: { nameInUrl: stri
     return Response.json(await deleteRecord(params.nameInUrl))
   } catch (error) {
     console.error('Error deleting record:', error)
-    return Response.error
+    return new Response('Failed to delete record.', { status: 500 })
   }
 }
 
