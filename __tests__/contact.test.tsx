@@ -3,8 +3,8 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import Contact from '@/contact/page'
 import sendEmail from '@/lib/sendEmail';
 
-jest.mock('../app/submit-button', () => () => <button type="submit"/>)
-jest.mock('../app/contact/sendEmail', () => ({
+jest.mock('../app/components/submit-button', () => () => <button type="submit"/>)
+jest.mock('../app/lib/sendEmail', () => ({
   __esModule: true,
   default: jest.fn((_: FormData) => { return 'Message sent' })
 }));
