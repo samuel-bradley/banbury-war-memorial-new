@@ -46,7 +46,11 @@ export default function RecordForm(props: RecordFormProps) {
         'Content-Type': 'application/json',
       },
     })
-    const wasDeleted = JSON.parse(await result.json())
+    if (!result.ok) {
+      setErrorMessage('Failed to delete.')
+      return
+    }
+    const wasDeleted = await result.json()
     if (wasDeleted) {
       router.push('/admin/records')
     } else {

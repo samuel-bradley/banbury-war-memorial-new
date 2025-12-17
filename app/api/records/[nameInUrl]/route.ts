@@ -2,8 +2,9 @@
 
 import { deleteRecord, MemorialRecord, retrieveRecord, updateRecord } from '@/lib/dynamoDb'
 
-export async function GET(_: Request, { params }: { params: { nameInUrl: string } }): Promise<Response> {
-  return retrieveRecord(params.nameInUrl)
+export async function GET(_: Request, { params }: { params: Promise<{ nameInUrl: string }> }): Promise<Response> {
+  const { nameInUrl } = await params
+  return retrieveRecord(nameInUrl)
     .then((record) => {
       return Response.json(JSON.stringify(record), { status: 200 })
     })
@@ -25,9 +26,10 @@ export async function PUT(request: Request) {
   }
 }
 
-export async function DELETE(_: Request, { params }: { params: { nameInUrl: string } }) {
+export async function DELETE(_: Request, { params }: { params: Promise<{ nameInUrl: string }> }) {
   try {
-    return Response.json(await deleteRecord(params.nameInUrl))
+    const { nameInUrl } = await params
+    return Response.json(await deleteRecord(nameInUrl))
   } catch (error) {
     console.error('Error deleting record:', error)
     return new Response('Failed to delete record.', { status: 500 })

@@ -5,8 +5,14 @@ test.describe.configure({ mode: 'serial' })
 test.describe('creating, viewing, updating and deleting memorial records', () => {
 
   let page: Page
-  test.beforeAll(async ({ browser }) => {
+  let recordName: string
+  let nameOnMemorial: string
+  
+  test.beforeAll(async ({ browser }, testInfo) => {
     page = await browser.newPage()
+    const browserName = testInfo.project.name
+    recordName = `PlaywrightAB-${browserName}`
+    nameOnMemorial = `Playwright, A B (${browserName})`
   })
 
   test('logging in as admin redirects to admin page', async () => {
@@ -27,10 +33,10 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
     await page.waitForURL('http://localhost:3000/admin/records/create')
 
     const nameInUrlInput = page.getByLabel('Name in URL:')
-    await nameInUrlInput.fill('PlaywrightAB')
+    await nameInUrlInput.fill(recordName)
 
     const nameOnMemorialInput = page.getByLabel('Name on memorial:')
-    await nameOnMemorialInput.fill('Playwright, A B')
+    await nameOnMemorialInput.fill(nameOnMemorial)
 
     const memorialPanelSelect = page.getByLabel('Memorial panel:')
     await memorialPanelSelect.selectOption('left')
@@ -84,11 +90,9 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
   })
 
   test('created record is visible and has correct values on public page', async () => {
-    await page.goto('http://localhost:3000/')
-
-    const recordLink = page.getByText('Playwright, A B')
-    await recordLink.click()
-    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+    await page.goto(`http://localhost:3000/memorial/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
+    await expect(page.getByRole('heading', { name: nameOnMemorial })).toBeVisible()
 
     await expect(page.getByText('Memorial panel: left')).toBeVisible()
     await expect(page.getByText('Full name: Albert Bert Playwright')).toBeVisible()
@@ -111,13 +115,16 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
 
   test('updating existing record is successful', async () => {
     await page.goto('http://localhost:3000/admin/records')
+    await page.waitForSelector('ul', { state: 'visible' })
 
-    const recordLink = page.getByText('PlaywrightAB')
+    const recordLink = page.getByText(recordName)
     await recordLink.click()
-    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+    await page.waitForURL(`http://localhost:3000/admin/records/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
 
     const nameOnMemorialInput = page.getByLabel('Name on memorial:')
-    await nameOnMemorialInput.fill('Playwright, A B C')
+    nameOnMemorial = `${nameOnMemorial} C`
+    await nameOnMemorialInput.fill(nameOnMemorial)
 
     const memorialPanelSelect = page.getByLabel('Memorial panel:')
     await memorialPanelSelect.selectOption('right')
@@ -171,11 +178,9 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
   })
 
   test('updated record is visible and has correct values on public page', async () => {
-    await page.goto('http://localhost:3000/')
-
-    const recordLink = page.getByText('Playwright, A B')
-    await recordLink.click()
-    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+    await page.goto(`http://localhost:3000/memorial/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
+    await expect(page.getByRole('heading', { name: nameOnMemorial })).toBeVisible()
 
     await expect(page.getByText('Memorial panel: right')).toBeVisible()
     await expect(page.getByText('Full name: Albert Bert Charles Playwright')).toBeVisible()
@@ -198,21 +203,24 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
 
   test('deleting record is successful', async () => {
     await page.goto('http://localhost:3000/admin/records')
+    await page.waitForSelector('ul', { state: 'visible' })
 
-    const recordLink = page.getByText('PlaywrightAB')
+    const recordLink = page.getByText(recordName)
     await recordLink.click()
-    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+    await page.waitForURL(`http://localhost:3000/admin/records/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
     
     const deleteButton = page.getByText('Delete')
     await deleteButton.click()
     
     await page.waitForURL('http://localhost:3000/admin/records')
-    expect(page.getByText('PlaywrightAB')).not.toBeVisible
+    await expect(page.getByText(recordName)).not.toBeVisible()
   })
 
   test('viewing deleted record gives a 404 page', async () => {
-    await page.goto('http://localhost:3000/memorial/PlaywrightAB')
-    expect(page.getByText('Sorry, but the page you tried to access was not found.')).toBeVisible
+    await page.goto(`http://localhost:3000/memorial/${recordName}`)
+    await page.waitForSelector('main', { state: 'visible' })
+    await expect(page.getByText(/Sorry, but the page you tried to access was not found/)).toBeVisible()
   })
 
 })
@@ -220,8 +228,14 @@ test.describe('creating, viewing, updating and deleting memorial records', () =>
 test.describe('creating, viewing and deleting minimal memorial records', () => {
 
   let page: Page
-  test.beforeAll(async ({ browser }) => {
+  let recordName: string
+  let nameOnMemorial: string
+  
+  test.beforeAll(async ({ browser }, testInfo) => {
     page = await browser.newPage()
+    const browserName = testInfo.project.name
+    recordName = `PlaywrightAB-minimal-${browserName}`
+    nameOnMemorial = `Playwright, A B (minimal ${browserName})`
   })
 
   test('logging in as admin redirects to admin page', async () => {
@@ -242,10 +256,10 @@ test.describe('creating, viewing and deleting minimal memorial records', () => {
     await page.waitForURL('http://localhost:3000/admin/records/create')
 
     const nameInUrlInput = page.getByLabel('Name in URL:')
-    await nameInUrlInput.fill('PlaywrightAB')
+    await nameInUrlInput.fill(recordName)
 
     const nameOnMemorialInput = page.getByLabel('Name on memorial:')
-    await nameOnMemorialInput.fill('Playwright, A B')
+    await nameOnMemorialInput.fill(nameOnMemorial)
     
     const saveButton = page.getByText('Save')
     await saveButton.click()
@@ -254,11 +268,9 @@ test.describe('creating, viewing and deleting minimal memorial records', () => {
   })
 
   test('created record is visible and has correct values on public page', async () => {
-    await page.goto('http://localhost:3000/')
-
-    const recordLink = page.getByText('Playwright, A B')
-    await recordLink.click()
-    await page.waitForURL('http://localhost:3000/memorial/PlaywrightAB')
+    await page.goto(`http://localhost:3000/memorial/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
+    await expect(page.getByRole('heading', { name: nameOnMemorial })).toBeVisible()
 
     await expect(page.getByText('Memorial panel: none')).toBeVisible()
     await expect(page.getByText('Full name: unknown')).toBeVisible()
@@ -278,16 +290,18 @@ test.describe('creating, viewing and deleting minimal memorial records', () => {
 
   test('deleting record is successful', async () => {
     await page.goto('http://localhost:3000/admin/records')
+    await page.waitForSelector('ul', { state: 'visible' })
 
-    const recordLink = page.getByText('PlaywrightAB')
+    const recordLink = page.getByText(recordName)
     await recordLink.click()
-    await page.waitForURL('http://localhost:3000/admin/records/PlaywrightAB')
+    await page.waitForURL(`http://localhost:3000/admin/records/${recordName}`)
+    await page.waitForSelector('main h1', { state: 'visible' })
     
     const deleteButton = page.getByText('Delete')
     await deleteButton.click()
     
     await page.waitForURL('http://localhost:3000/admin/records')
-    expect(page.getByText('PlaywrightAB')).not.toBeVisible
+    await expect(page.getByText('PlaywrightAB')).not.toBeVisible()
   })
 
 })

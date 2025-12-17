@@ -9,8 +9,8 @@ const s3 = new S3Client({
   },
 })
 
-export async function GET(_: Request, { params }: { params: { key: string } }) {
-  const { key } = params
+export async function GET(_: Request, { params }: { params: Promise<{ key: string }> }) {
+  const { key } = await params
 
   try {
     const command = new GetObjectCommand({

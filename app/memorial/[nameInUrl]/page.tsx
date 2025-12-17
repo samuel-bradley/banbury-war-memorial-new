@@ -2,8 +2,9 @@ import { MemorialRecord, retrieveRecord } from '@/lib/dynamoDb'
 import Main from '@/components/main'
 import { notFound } from 'next/navigation'
 
-export default async function Page({ params }: { params: { nameInUrl: string } }) {
-  const record = await retrieveRecord(params.nameInUrl)
+export default async function Page({ params }: { params: Promise<{ nameInUrl: string }> }) {
+  const { nameInUrl } = await params
+  const record = await retrieveRecord(nameInUrl)
   const emptyText = 'unknown'
 
   const dateOfDeathText = (record: MemorialRecord): string => {
@@ -16,7 +17,7 @@ export default async function Page({ params }: { params: { nameInUrl: string } }
       <Main pageName={record.nameInUrl} heading={record.nameOnMemorial} content = {
         <>
           <ul>
-            <li><strong>Memorial panel:</strong> {record.memorialPanel}</li>
+            <li><strong>Memorial panel:</strong> {record.memorialPanel ?? emptyText}</li>
             <li><strong>Full name:</strong> {record.fullName ?? emptyText}</li>
             <li><strong>Rank:</strong> {record.rank ?? emptyText}</li>
             <li><strong>Service details:</strong> {record.serviceDetails ?? emptyText}</li>

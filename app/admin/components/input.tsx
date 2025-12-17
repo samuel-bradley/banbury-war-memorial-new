@@ -54,7 +54,7 @@ export function Select(props: SelectProps) {
     <div className="sm:col-span-10">
       <label htmlFor={props.nameAndId} className="block leading-6 mb-1">{props.label}</label>
       <div className="flex rounded-md shadow-sm ring-2 ring-inset ring-gray-500 focus-within:ring-inset focus-within:ring-gray-400 sm:max-w-md">
-        <select required={props.required} id={props.nameAndId} name={props.nameAndId} defaultValue={props.selectedValue}
+        <select required={props.required} id={props.nameAndId} name={props.nameAndId} defaultValue={props.selectedValue ?? props.options[0]?.value}
           className="block flex-1 border-0 bg-transparent py-1.5 pl-2 focus:ring-0 sm:leading-6 placeholder:text-gray-500">
             {props.options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
         </select>

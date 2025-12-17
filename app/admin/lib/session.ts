@@ -7,7 +7,7 @@ import CryptoJS from 'crypto-js'
 export async function logIn() {
   const sessionData = JSON.stringify({ isLoggedIn: true })
   const encryptedSessionData = encrypt(sessionData)
-  cookies().set('session', encryptedSessionData, {
+  ;(await cookies()).set('session', encryptedSessionData, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60, // One hour
@@ -17,7 +17,7 @@ export async function logIn() {
 }
 
 export async function isLoggedIn() {
-  const sessionCookie = cookies().get('session')?.value
+  const sessionCookie = (await cookies()).get('session')?.value
   if (sessionCookie) {
     const session = JSON.parse(decrypt(sessionCookie))
     return session.isLoggedIn
